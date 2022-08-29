@@ -56,26 +56,33 @@ final_df['class'] = le.fit_transform(final_df['class'])
 train_data2, test_data2,train_label2,test_label2 = train_test_split(final_df.iloc[:,:-1],final_df['class'], test_size=0.9, random_state=313)
 
     
-# Read data into pandas dataframe
+# Model the classifier using GaussianNB, BernoulliNB, and Multinomial NB 
+
+# GaussianNB implementation
+
+#cl_gauss = GaussianNB()
+#res_gauss = cl_gauss.fit(train_data2, train_label2).predict(test_data2)
+#metrics.accuracy_score(test_label2, res_gauss) * 100
+
 df=final_df
 #Define Feature Matrix (X) and Label Array (y)
 X=df.drop(['class'],axis=1)
 y=df['class']
-lr=RandomForestClassifier(n_estimators=100, n_jobs=1,random_state=8)
+clf=GaussianNB()
+lr=clf.fit(train_data2, train_label2)
+pred = clf.predict(test_data2)
 lr.fit(X,y)
-print("=====================")
+
 print(X)
 print(y)
-print("=====================")
+
 #Serialize the model and save
 import joblib
 joblib.dump(lr, 'randomfs.pkl')
-print("Random Forest Model Saved")
+print("Gaussian Model Saved")
 #Load the model
 lr = joblib.load('randomfs.pkl')
 # Save features from training
 rnd_columns = list(train_data2.columns)
-print(rnd_columns)
-print("==>>>>>>>>>>>>")
 joblib.dump(rnd_columns, 'rnd_columns.pkl')
-print("Random Forest Model Colums Saved")
+print("Gaussian Model Colums Saved")

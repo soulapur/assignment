@@ -1,1 +1,1 @@
-web: gunicorn app:gnine
+web: gunicorn gnine:app

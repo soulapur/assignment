@@ -40,9 +40,9 @@ if __name__ == '__main__':
     try:
         port = int(sys.argv[1])
     except:
-        port = 12345
+        
         lr = joblib.load("randomfs.pkl")
         print('Model loaded')
         rnd_columns = joblib.load("rnd_columns.pkl")  # Load “rnd_columns.pkl”
         print('Model columns loaded')
-        application.run(port=port, debug=True)
+        application.run(host="0.0.0.0", port=8080)
